@@ -1,6 +1,7 @@
 
 /* 
 apex class name : roundRobinClass
+Description : Custom Round robin Class
 */
 public with sharing class roundRobinClass {
     @AuraEnabled(cacheable=true)
