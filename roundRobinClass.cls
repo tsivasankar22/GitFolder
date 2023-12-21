@@ -1,3 +1,6 @@
+/* 
+apex class name : roundRobinClass
+*/
 public with sharing class roundRobinClass {
     @AuraEnabled(cacheable=true)
     public static String CustomSetting() {
