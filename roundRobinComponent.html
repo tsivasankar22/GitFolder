@@ -1,0 +1,87 @@
+<template>
+    <lightning-card title="Generic Record Ownership Assignment Using Round Robin" >
+        <h2 style="font-size: x-large;">&emsp;Record Assignments</h2><hr>
+        <lightning-combobox
+        label="Select an Object"
+        value={selectedValue}
+        options={customSettingApiNames}
+        onchange={handleChange}
+        placeholder="--None--">
+    </lightning-combobox>
+    <template if:true={supportedQueues}>
+        <lightning-combobox
+            label="Select a Queue"
+            value={selectedQueue}
+            options={queqes}
+            onchange={QueuehandleChange}
+            placeholder="--None--">
+        </lightning-combobox>
+    </template>
+    <div class="slds-grid slds-gutters">
+       
+        <div class="slds-col" >
+            <lightning-input
+                type="checkbox"
+                label="Managed Queue"
+                checked={managedQueueValue}
+                onchange={handleManagedQueueChange}>
+            </lightning-input>
+        </div>
+        <div class="slds-col">
+            <lightning-input
+                type="datetime"
+                label="Base Distribution on Start Date Time"
+                value={baseDistributionDateTime}
+                onchange={handleBaseDistributionDateTimeChange}>
+            </lightning-input>
+        </div>
+    </div>
+    <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered">
+        <thead>
+            <tr>
+                <th>
+                    <label class="slds-checkbox">
+                        <input type="checkbox" checked={selectAllCheckbox} onchange={handleSelectAll}></input>
+                        <span class="slds-checkbox_faux"></span>
+                    </label>
+                </th>
+                <th>Receive</th>
+                <th>Percentage</th>
+                <th>Reminder</th>
+            </tr>
+        </thead>
+        <tbody>
+            <template for:each={UsersOfQueue} for:item="user">
+                <tr key={user.Id}>
+                    <td>
+                         <label class="slds-checkbox">
+                                <input type="checkbox" data-user-id={user.Id} checked={user.isSelected} onchange={handleCheckboxChange}></input>
+                                <span class="slds-checkbox_faux"></span>
+                            </label>
+                    </td>
+                    <td>{user.Name}</td>
+
+                    <td>
+                        <lightning-input
+                            type="number"
+                            value={user.Percentage__c}
+                            data-user-id={user.Id}
+                            onchange={handlePercentageChange}>
+                        </lightning-input>
+                    </td>
+                    <td>  
+                        <lightning-button
+                        label="Remainder"
+                        variant="neutral"
+                        value={user.Remainder__c}
+                        onclick={handleReminderClick}>
+                     </lightning-button></td>
+                 
+                </tr>
+            </template>
+        </tbody>
+          
+        </table>
+    </lightning-card>
+    
+</template>
